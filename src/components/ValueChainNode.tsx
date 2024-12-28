@@ -19,7 +19,8 @@ const ValueChainNode = ({ data }: ValueChainNodeProps) => {
     <div className="relative">
       <Handle type="target" position={Position.Left} className="w-2 h-2" />
       <div 
-        className="w-[300px] bg-white rounded-lg shadow-lg border border-gray-200 transition-all duration-300"
+        className="w-[300px] bg-white rounded-lg shadow-lg border border-gray-200 transition-all duration-300 relative"
+        style={{ zIndex: isExpanded ? 50 : 0 }}
         onMouseEnter={() => setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
       >
@@ -29,7 +30,7 @@ const ValueChainNode = ({ data }: ValueChainNodeProps) => {
         </div>
         
         <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-[400px]' : 'max-h-0'}`}>
-          <div className="p-4 space-y-3">
+          <div className="p-4 space-y-3 bg-white">
             <div>
               <h4 className="text-sm font-medium text-secondary">Key Players:</h4>
               <p className="text-sm text-gray-600">{data.players.join(", ")}</p>
