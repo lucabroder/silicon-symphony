@@ -16,11 +16,10 @@ const ValueChainNode = ({ data }: ValueChainNodeProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative" style={{ zIndex: isExpanded ? 50 : 0 }}>
       <Handle type="target" position={Position.Left} className="w-2 h-2" />
       <div 
-        className="w-[300px] bg-white rounded-lg shadow-lg border border-gray-200 transition-all duration-300 relative"
-        style={{ zIndex: isExpanded ? 50 : 0 }}
+        className="w-[300px] bg-white rounded-lg shadow-lg border border-gray-200 transition-all duration-300"
         onMouseEnter={() => setIsExpanded(true)}
         onMouseLeave={() => setIsExpanded(false)}
       >
@@ -29,8 +28,16 @@ const ValueChainNode = ({ data }: ValueChainNodeProps) => {
           <p className="text-sm text-gray-600 mt-2">{data.summary}</p>
         </div>
         
-        <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-[400px]' : 'max-h-0'}`}>
-          <div className="p-4 space-y-3 bg-white">
+        <div 
+          className={`overflow-hidden transition-all duration-300 absolute w-full bg-white rounded-b-lg border border-t-0 border-gray-200 ${
+            isExpanded ? 'opacity-100 visible' : 'opacity-0 invisible'
+          }`}
+          style={{
+            maxHeight: isExpanded ? '400px' : '0',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+          }}
+        >
+          <div className="p-4 space-y-3">
             <div>
               <h4 className="text-sm font-medium text-secondary">Key Players:</h4>
               <p className="text-sm text-gray-600">{data.players.join(", ")}</p>
