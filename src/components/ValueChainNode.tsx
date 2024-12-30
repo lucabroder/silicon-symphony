@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Handle, Position } from '@xyflow/react';
+import { createPortal } from 'react-dom';
 
 interface ValueChainNodeProps {
   data: {
@@ -14,28 +15,42 @@ interface ValueChainNodeProps {
 
 const ValueChainNode = ({ data }: ValueChainNodeProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [nodeRect, setNodeRect] = useState<DOMRect | null>(null);
+  const nodeRef = React.useRef<HTMLDivElement>(null);
+
+  const handleMouseEnter = () => {
+    if (nodeRef.current) {
+      setNodeRect(nodeRef.current.getBoundingClientRect());
+    }
+    setIsExpanded(true);
+  };
 
   return (
-    <div className="relative" style={{ zIndex: 50 }}>
+    <div className="relative" ref={nodeRef}>
       <Handle type="target" position={Position.Left} className="w-2 h-2" />
       <div 
-        className="w-[300px] bg-white rounded-lg shadow-lg border border-gray-200 transition-all duration-300"
-        onMouseEnter={() => setIsExpanded(true)}
+        className="w-[300px] bg-white rounded-lg shadow-lg border border-gray-200"
+        onMouseEnter={handleMouseEnter}
         onMouseLeave={() => setIsExpanded(false)}
       >
         <div className="p-4 border-b border-gray-200">
           <h3 className="text-lg font-semibold text-primary">{data.title}</h3>
           <p className="text-sm text-gray-600 mt-2">{data.summary}</p>
         </div>
-        
+      </div>
+      <Handle type="source" position={Position.Right} className="w-2 h-2" />
+      
+      {isExpanded && nodeRect && createPortal(
         <div 
-          className={`overflow-hidden transition-all duration-300 absolute w-full bg-white rounded-b-lg border border-t-0 border-gray-200 ${
-            isExpanded ? 'opacity-100 visible' : 'opacity-0 invisible'
-          }`}
+          className="fixed bg-white rounded-b-lg border border-t-0 border-gray-200 shadow-lg"
           style={{
-            maxHeight: isExpanded ? '400px' : '0',
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+            top: nodeRect.bottom + window.scrollY,
+            left: nodeRect.left + window.scrollX,
+            width: nodeRect.width,
+            zIndex: 9999,
           }}
+          onMouseEnter={() => setIsExpanded(true)}
+          onMouseLeave={() => setIsExpanded(false)}
         >
           <div className="p-4 space-y-3">
             <div>
@@ -55,9 +70,9 @@ const ValueChainNode = ({ data }: ValueChainNodeProps) => {
               <p className="text-sm text-gray-600">{data.opportunities.join(", ")}</p>
             </div>
           </div>
-        </div>
-      </div>
-      <Handle type="source" position={Position.Right} className="w-2 h-2" />
+        </div>,
+        document.body
+      )}
     </div>
   );
 };
