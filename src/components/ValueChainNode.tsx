@@ -42,7 +42,7 @@ const ValueChainNode = ({ data }: ValueChainNodeProps) => {
       
       {isExpanded && nodeRect && createPortal(
         <div 
-          className="fixed bg-white rounded-b-lg border border-gray-200 shadow-lg"
+          className="fixed bg-white rounded-b-lg border border-gray-200 shadow-lg origin-top animate-[expand_0.2s_ease-out]"
           style={{
             top: nodeRect.bottom + window.scrollY,
             left: nodeRect.left + window.scrollX,
