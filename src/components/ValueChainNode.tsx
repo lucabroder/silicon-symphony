@@ -16,7 +16,7 @@ const ValueChainNode = ({ data }: ValueChainNodeProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="relative" style={{ zIndex: isExpanded ? 50 : 0 }}>
+    <div className="relative" style={{ zIndex: 50 }}>
       <Handle type="target" position={Position.Left} className="w-2 h-2" />
       <div 
         className="w-[300px] bg-white rounded-lg shadow-lg border border-gray-200 transition-all duration-300"
