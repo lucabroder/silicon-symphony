@@ -54,20 +54,20 @@ const ValueChainNode = ({ data }: ValueChainNodeProps) => {
         >
           <div className="p-4 space-y-4">
             <div>
-              <h4 className="text-sm font-semibold text-primary mb-1">Key Players</h4>
-              <p className="text-sm text-gray-600 leading-relaxed">{data.players.join(", ")}</p>
+              <h4 className="text-lg font-semibold text-primary mb-1">Key Players</h4>
+              <p className="text-sm text-gray-600">{data.players.join(", ")}</p>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-primary mb-1">Inputs</h4>
-              <p className="text-sm text-gray-600 leading-relaxed">{data.inputs.join(", ")}</p>
+              <h4 className="text-lg font-semibold text-primary mb-1">Inputs</h4>
+              <p className="text-sm text-gray-600">{data.inputs.join(", ")}</p>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-primary mb-1">Risks</h4>
-              <p className="text-sm text-gray-600 leading-relaxed">{data.risks.join(", ")}</p>
+              <h4 className="text-lg font-semibold text-primary mb-1">Risks</h4>
+              <p className="text-sm text-gray-600">{data.risks.join(", ")}</p>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-primary mb-1">Opportunities</h4>
-              <p className="text-sm text-gray-600 leading-relaxed">{data.opportunities.join(", ")}</p>
+              <h4 className="text-lg font-semibold text-primary mb-1">Opportunities</h4>
+              <p className="text-sm text-gray-600">{data.opportunities.join(", ")}</p>
             </div>
           </div>
         </div>,
